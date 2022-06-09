@@ -6,7 +6,7 @@
          #floating-panel {
             position: absolute;
             top: 10px;
-            left: 25%;
+            left: 45%;
             z-index: 5;
             background-color: #fff;
             padding: 5px;
@@ -20,7 +20,6 @@
    </head>
    <body>
       <div id="floating-panel">
-         <b>Modo: </b>
          <select id="mode">
            <option value="WALKING">Caminando</option>
            <option value="DRIVING">Vehiculo</option>
@@ -69,7 +68,7 @@
                .then((response) => {
                   directionsRenderer.setDirections(response);
                })
-               .catch((e) => window.alert("Solicitud de indicaciones fallida debido a " + status));
+               .catch((e) => window.alert("Solicitud de indicaciones fallida o no esta disponible"));
          }
 
          window.initMap = initMap;
