@@ -8,10 +8,19 @@
    <body>
       <div id="map"></div>
       <script>
+         var queryString = window.location.search;
+         var urlParams = new URLSearchParams(queryString);
+         var originLat = parseFloat(urlParams.get('originLat'));
+         var originLng = parseFloat(urlParams.get('originLng'));
+         var destinationLat = parseFloat(urlParams.get('destinationLat'));
+         var destinationLng = parseFloat(urlParams.get('destinationLng'));
+         var centerLat = (Math.sign(originLat) == -1 && Math.sign(destinationLat) == -1)? ((originLat * -1) + (destinationLat * -1))/2 : (originLat + destinationLat)/2;
+         var centerLng = (Math.sign(originLng) == -1 && Math.sign(destinationLng) == -1)? ((originLng * -1) + (destinationLng * -1))/2 : (originLng + destinationLng)/2;
+
          var map;
          function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
-               center: { lat: 40.349650, lng: -3.695202 },
+               center: { lat: centerLat, lng: centerLng },
                zoom: 13
             });
 
@@ -20,8 +29,8 @@
             const directionsRenderer = new google.maps.DirectionsRenderer();
             directionsRenderer.setMap(map);
             const request = {
-               origin: new google.maps.LatLng(40.350637, -3.693359),
-               destination: new google.maps.LatLng(40.348336, -3.696776),
+               origin: new google.maps.LatLng(originLat, originLng),
+               destination: new google.maps.LatLng(destinationLat, destinationLng),
                travelMode: 'WALKING'
             };
             directionsService.route(request, response => {
@@ -29,6 +38,6 @@
             });
          }
       </script>
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCmCiF-uAHoZsy0Zf9dChfUzM2JjhaNUM&callback=initMap" async defer></script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvJHAG-CWfbvAG8x7A5afDb5W1nk77clI&callback=initMap" async defer></script>
    </body>
 </html>
